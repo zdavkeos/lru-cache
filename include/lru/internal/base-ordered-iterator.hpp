@@ -136,10 +136,24 @@ class BaseOrderedIterator
   BaseOrderedIterator(BaseOrderedIterator&& other) = default;
 
   /// Copy assignment operator.
-  BaseOrderedIterator& operator=(const BaseOrderedIterator& other) = default;
+  BaseOrderedIterator& operator=(const BaseOrderedIterator& other) {
+    if (this != &other) {
+      this->_cache = other._cache;
+      this->_iterator = other._iterator;
+      this->_entry = other._entry;
+    }
+    return *this;
+  }
 
   /// Move assignment operator.
-  BaseOrderedIterator& operator=(BaseOrderedIterator&& other) = default;
+  BaseOrderedIterator& operator=(BaseOrderedIterator&& other)  noexcept {
+    if (this != &other) {
+      this->_cache = std::move(other._cache);
+      this->_iterator = std::move(other._iterator);
+      this->_entry = std::move(other._entry);
+    }
+    return *this;
+  }
 
   /// Destructor.
   virtual ~BaseOrderedIterator() = default;
