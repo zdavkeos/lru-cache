@@ -2,7 +2,7 @@
 ## CMAKE SETUP
 ###########################################################
 
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.11)
 project(lru-cache)
 
 add_compile_options(-g)
@@ -17,7 +17,10 @@ check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX_14)
 check_cxx_compiler_flag("-std=c++1z" COMPILER_SUPPORTS_CXX_1z)
 check_cxx_compiler_flag("-std=c++17" COMPILER_SUPPORTS_CXX_17)
 
-if (COMPILER_SUPPORTS_CXX_1z)
+if (COMPILER_SUPPORTS_CXX_17)
+  message(STATUS "Compiling with C++17")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+elseif (COMPILER_SUPPORTS_CXX_1z)
   message(STATUS "Compiling with C++1z")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z")
 elseif (COMPILER_SUPPORTS_CXX_14)
